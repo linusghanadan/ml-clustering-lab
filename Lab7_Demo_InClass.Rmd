@@ -56,7 +56,7 @@ kmeans_model <- kmeans(metals_df, centers = 3, nstart = 25)
 
 ```{r}
 # plot the clusters
-fviz_cluster(kmeans_result, geom = "point", data = metals_df) + ggtitle("k=3")
+fviz_cluster(kmeans_model, geom = "point", data = metals_df) + ggtitle("k=3")
 ```
 
 When we connect the outermost points in each cluster, we see that there is overlap between the far right side of cluster 2 and the far left side of cluster 3. The points near this boundary might have been assigned this way just because of the other nearby points that belonged to each cluster, or this could indicate that we should have chosen a larger number of clusters.
