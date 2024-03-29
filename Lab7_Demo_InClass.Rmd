@@ -1,5 +1,5 @@
 ---
-title: "Clustering Lab"
+title: "Clustering analysis of biological contaminatinating algae based on metal content"
 author: "Linus Ghanadan"
 date: "2024-02-29"
 output: html_document
@@ -7,7 +7,7 @@ output: html_document
 
 ## Background
 
-Now it's your turn to partition a dataset.  For this lab, we'll use data from Roberts et al. 2008 on bio-contaminants in Sydney Australia's Port Jackson Bay.  The data are measurements of metal content in two types of co-occurring algae at 10 sample sites around the bay.
+To practice clustering analysis, we'll use data from [Roberts et al. 2008](https://doi.org/10.1016/j.marpolbul.2008.03.003) on biological contaminants in Port Jackson Bay (located in Sydney, Australia). The data are measurements of metal content in two types of co-occurring algae at 10 sample sites around the bay.
 
 ## Setup & import data
 
@@ -26,7 +26,6 @@ library(tidyverse)
 library(tidymodels)
 library(cluster) # cluster analysis
 library(factoextra) # cluster visualization
-library(RColorBrewer)
 ```
 
 ```{r data}
@@ -71,7 +70,7 @@ Looking at the specific values, 'size', which give the number of points allocate
 
 ## Hierarchical clustering
 
-#### Calculate Euclidean distance matrix
+#### Calculate Euclidean distance matrix & build model
 
 ```{r}
 # calculate distance matrix
@@ -80,23 +79,20 @@ dist_matrix <- dist(metals_df, method = "euclidean")
 
 Each value in this matrix tells us the Euclidean distance between a set of two points in our data. There are 1770 rows in the table, one for each unique set of points.
 
-3. Then apply hierarchical clustering with hclust().
-
 ```{r}
-# 3. Apply hierarchical clustering
-hc_result <- hclust(dist_matrix)
+# build clustering model
+hc_model <- hclust(dist_matrix)
 ```
 
-
-4. Now plot the clustering object. You can use something of the form plot(as.dendrogram()).  Or you can check out the cool visual options here: https://rpubs.com/gaston/dendrograms
+#### Inspect clustering model
 
 ```{r}
-
-# 4. Plot the clustering object
-plot(as.dendrogram(hc_result), main = "Hierarchical Clustering Dendrogram")
-
+# plot the dendrogram of clustering model
+plot(as.dendrogram(hc_model), main = "Hierarchical Clustering Dendrogram")
 ```
 
-How does the plot look? Do you see any outliers?  How can you tell?  
+The dendrogram looks as expected. 51 is clearly an outlier point because starting from the bottom of the dendrogram and moving up, it is by far the last point to be assigned to a cluster that includes any other points besides itself, and when this assignment does occur, the point is about 80 distance units away from the centroid of the cluster it is assigned to. Comparatively, the point with the next highest distance away from the centroid of its initial assignment to a cluster containing more than just itself is 15, at about 40 distance units.
 
-[The plot looks as expected. 51 is clearly an outlier point because starting from the bottom of the dendrogram and moving up, it is by far the last point to be assigned to a cluster that includes any other points besides itself, and when this assignment does occur, the point is about 80 distance units away from the centroid of the cluster it is assigned to. Comparatively, the point with the next highest distance away from the centroid of its initial assignment to a cluster containing more than just itself is 15, at about 40 distance units.]{style="color:navy;"}
+## Conclusion
+
+Our clustering analysis indicates that there are 3 major clusters of biological contaminating algae. For each cluster of algae, there are differing expected ranges of metal content across the five types of metal looked at (Cd, Cr, Cu, Mn, and Ni).
