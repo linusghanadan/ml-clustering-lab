@@ -4,8 +4,10 @@
     ml-clustering-lab
     └───data
         │   harbour_metals.csv
-    └───output
-        │   ml-clustering-lab.html
+    └───images
+        │   Hierarchical Clustering Dendrogram : hierarchical-clustering-dendrogram.png
+        │   Scatter Plot of K-Means Clusters with K=3: k-means-clustering.png
+        │   Line Plot of TWSS and K (to determine optimal K): optimal-k.png
     │   README.md
     │   .Rmd
     │   .Rproj
