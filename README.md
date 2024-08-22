@@ -1,5 +1,7 @@
 ## Cluster Analysis of Bio-Contaminating Algae in Port Jackson Bay
 
+### [Link to Blog (with R code)](https://linusghanadan.github.io/blog/2024-4-1-post/)
+
 ### Repository Contents
     ml-clustering-lab
     └───data
